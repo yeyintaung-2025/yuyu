@@ -88,15 +88,19 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
+            display: none; /* Hidden by default, JavaScript will show the active section */
         }
 
-        section:nth-of-type(odd) {
-            background-color: white;
+        section.active {
+            display: block; /* Show the active section */
         }
 
-        section:nth-of-type(even) {
-            background-color: #e2e8f0; /* Light blue-gray */
-        }
+        /* Specific section backgrounds */
+        #home-section { background-color: white; }
+        #about-section { background-color: #e2e8f0; } /* Light blue-gray */
+        #services-section { background-color: white; }
+        #contact-section { background-color: #e2e8f0; } /* Light blue-gray */
+
 
         section h1 {
             font-size: 3rem;
@@ -139,37 +143,37 @@
         }
 
         /* About Section Specifics */
-        #about .content-wrapper {
+        #about-section .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 32px;
         }
 
-        #about .image-container {
+        #about-section .image-container {
             width: 100%;
             max-width: 600px;
         }
 
-        #about .image-container img {
+        #about-section .image-container img {
             width: 100%;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        #about .text-content {
+        #about-section .text-content {
             text-align: left;
             color: #4a5568;
             line-height: 1.7;
         }
 
-        #about .text-content p {
+        #about-section .text-content p {
             margin-bottom: 16px;
         }
 
         /* Services Section Specifics */
-        #services .grid-container {
+        #services-section .grid-container {
             display: grid;
             grid-template-columns: 1fr;
             gap: 32px;
@@ -210,28 +214,34 @@
         .service-card:nth-child(3) h3 {
             color: #7e22ce;
         }
+        .service-card:nth-child(4) { /* Another card, default blue */
+            background-color: #ebf8ff;
+        }
+        .service-card:nth-child(4) h3 {
+            color: #2b6cb0;
+        }
 
         /* Contact Form Specifics */
-        #contact form {
+        #contact-section form {
             max-width: 600px;
             margin: 0 auto;
             text-align: left;
         }
 
-        #contact .form-group {
+        #contact-section .form-group {
             margin-bottom: 16px;
         }
 
-        #contact label {
+        #contact-section label {
             display: block;
             color: #4a5568;
             font-weight: bold;
             margin-bottom: 8px;
         }
 
-        #contact input[type="text"],
-        #contact input[type="email"],
-        #contact textarea {
+        #contact-section input[type="text"],
+        #contact-section input[type="email"],
+        #contact-section textarea {
             box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
             border: 1px solid #cbd5e0; /* Light gray border */
             border-radius: 6px;
@@ -242,19 +252,19 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        #contact input:focus,
-        #contact textarea:focus {
+        #contact-section input:focus,
+        #contact-section textarea:focus {
             outline: none;
             border-color: #3b82f6; /* Blue focus border */
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Blue glow */
         }
 
-        #contact textarea {
+        #contact-section textarea {
             min-height: 120px;
             resize: vertical;
         }
 
-        #contact .form-submit-button {
+        #contact-section .form-submit-button {
             display: block;
             margin: 0 auto;
         }
@@ -297,7 +307,6 @@
         footer .footer-links span {
             color: #718096; /* Even lighter gray for separator */
         }
-
 
         /* Custom Modal Styles */
         .custom-modal-overlay {
@@ -359,19 +368,123 @@
             background-color: #1d4ed8;
         }
 
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            display: block;
+            flex-shrink: 0; /* Prevent images from shrinking */
+            height: 400px; /* Fixed height for carousel images */
+            object-fit: cover; /* Cover the area, cropping if necessary */
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
-            #about .content-wrapper {
+            #about-section .content-wrapper {
                 flex-direction: row;
             }
-            #about .image-container,
-            #about .text-content {
+            #about-section .image-container,
+            #about-section .text-content {
                 width: 50%;
             }
 
-            #services .grid-container {
-                grid-template-columns: repeat(3, 1fr);
+            #services-section .grid-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+            }
+        }
+        @media (min-width: 1024px) {
+            #services-section .grid-container {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+            }
+        }
+        @media (max-width: 768px) {
+            header nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            header nav ul {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            header nav .logo {
+                font-size: 1.5rem;
+            }
+            section {
+                padding: 40px 20px;
+            }
+            section h1, section h2 {
+                font-size: 2rem;
+            }
+            section p {
+                font-size: 1rem;
+            }
+            .carousel-slide img {
+                height: 250px; /* Adjust height for smaller screens */
             }
         }
     </style>
@@ -381,12 +494,12 @@
     <!-- Header Section -->
     <header>
         <nav class="container">
-            <a href="#" class="logo">MySite</a>
+            <a href="#home" class="logo">MySite</a>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home-section" data-section="home-section">Home</a></li>
+                <li><a href="#about-section" data-section="about-section">About</a></li>
+                <li><a href="#services-section" data-section="services-section">Services</a></li>
+                <li><a href="#contact-section" data-section="contact-section">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -394,8 +507,8 @@
     <!-- Main Content Area -->
     <main class="container">
 
-        <!-- Hero Section -->
-        <section id="home">
+        <!-- Home Section -->
+        <section id="home-section" class="active">
             <h1>Welcome to Ye Yint Aung Website!</h1>
             <p>
                 ရဲရင့်အောင်၏ Website ကို လာရောက်ကြည့်ရှု့သူအားလုံး စိတ်နှလုံး ရွှင်လန်းချမ်းမြေ့ကြပါစေ
@@ -403,64 +516,80 @@
             <button id="ctaButton" class="cta-button">
                 Learn More
             </button>
-        </section>
 
-        <!-- About Section -->
-        <section id="about">
-            <h2>About Us</h2>
-            <div class="content-wrapper">
-                <div class="image-container">
-                    <img src="W.jpg">
+            <!-- Image Carousel -->
+            <div class="carousel-container">
+                <div class="carousel-slide" id="carouselSlide">
+                    <img src="1.jpg">
+                    <img src="2.jpg">
+                   <img src="3.jpg">
+                    <img src="4.jpg">
+                    <img src="5.jpg">
+                   <img src="6.jpg">
                 </div>
-                <div class="text-content">
-                    <p>
-    Shinhan Microfinance Myanmar was founded in 2016 and licensed by the Myanmar Microfinance Supervisory Committee.
-    We provide responsible microfinance to underserved communities, promoting transparency and long-term growth.
-  </p>
-  <p>
-    Headquarters: No.206, Thiri Mingalar Street, East Ywama, Insein Township, Yangon<br>
-    Phone: 01 643 685<br>
-    Email: info@shinhanmyanmar.com
-  </p>
- <p>
-                     ဖြည့်စွက်ရန်
-                    </p>
-
-</section>
-
+                <button class="carousel-button prev" id="prevBtn">&#10094;</button>
+                <button class="carousel-button next" id="nextBtn">&#10095;</button>
+                <div class="carousel-dots" id="carouselDots">
+                    <span class="carousel-dot active" data-slide="0"></span>
+                    <span class="carousel-dot" data-slide="1"></span>
+                    <span class="carousel-dot" data-slide="2"></span>
+                    <span class="carousel-dot" data-slide="3"></span>
+                    <span class="carousel-dot" data-slide="4"></span>
+                    <span class="carousel-dot" data-slide="5"></span>
                 </div>
             </div>
         </section>
 
-        <!-- ဝန်ဆောင်မှုများ -->
-        <section id="services">
-            <h2>ချေးငွေ ဝန်ဆောင်မှုအမျိုးအစားများ
-</h2>
-           <section id="products">
-  <h2>ချေးငွေအမျိုးအစားများ</h2>
+        <!-- About Section -->
+        <section id="about-section">
+            <h2>About Us</h2>
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="W.jpg" alt="About Us">
+                </div>
+                <div class="text-content">
+                    <p>
+                        Shinhan Microfinance Myanmar was founded in 2016 and licensed by the Myanmar Microfinance Supervisory Committee.
+                        We provide responsible microfinance to underserved communities, promoting transparency and long-term growth.
+                    </p>
+                    <p>
+                        Headquarters: No.206, Thiri Mingalar Street, East Ywama, Insein Township, Yangon<br>
+                        Phone: 01 643 685<br>
+                        Email: info@shinhanmyanmar.com
+                    </p>
+                    <p>
+                        ဖြည့်စွက်ရန် (Additional content can be added here)
+                    </p>
+                </div>
+            </div>
+        </section>
 
-  <div class="product">
-    <h3>အုပ်စုချေးငွေ (Group Loan)</h3>
-    <p>Group-based loans for individuals starting or growing small businesses with peer accountability and support.</p>
-  </div>
-
-  <div class="product">
-    <h3>တစ်ဦးချင်းချေးငွေ (Individual Loan)</h3>
-    <p>Tailored loan products for individual borrowers expanding their business or working independently.</p>
-  </div>
-
-  <div class="product">
-    <h3>ကိုရီးယားအလုပ်သမားချေးငွေ (Korea Worker Loan)</h3>
-    <p>For individuals approved by the Ministry of Labour to work in Korea.
-       Loan amounts range from 1,000,000 to 8,000,000 MMK depending on their needs and situation.</p>
-<div class="product">
-    <h3>စိုက်ပျိုးမွေးမြူရေးချေးငွေ(Agri Loan)</h3>
-    <p>စိုက်ပျိုးရေးနှင့် မွေးမြူရေးလုပ်ငန်းများအတွက်ထုတ်ချေးသောငွေဖြစ်ပါသည်။</p>
-
-  </div>
+        <!-- Services Section -->
+        <section id="services-section">
+            <h2>ချေးငွေ ဝန်ဆောင်မှုအမျိုးအစားများ</h2>
+            <div class="grid-container">
+                <div class="service-card">
+                    <h3>အုပ်စုချေးငွေ (Group Loan)</h3>
+                    <p>Group-based loans for individuals starting or growing small businesses with peer accountability and support.</p>
+                </div>
+                <div class="service-card">
+                    <h3>တစ်ဦးချင်းချေးငွေ (Individual Loan)</h3>
+                    <p>Tailored loan products for individual borrowers expanding their business or working independently.</p>
+                </div>
+                <div class="service-card">
+                    <h3>ကိုရီးယားအလုပ်သမားချေးငွေ (Korea Worker Loan)</h3>
+                    <p>For individuals approved by the Ministry of Labour to work in Korea.
+                       Loan amounts range from 1,000,000 to 8,000,000 MMK depending on their needs and situation.</p>
+                </div>
+                <div class="service-card">
+                    <h3>စိုက်ပျိုးမွေးမြူရေးချေးငွေ(Agri Loan)</h3>
+                    <p>စိုက်ပျိုးရေးနှင့် မွေးမြူရေးလုပ်ငန်းများအတွက်ထုတ်ချေးသောငွေဖြစ်ပါသည်။</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
-        <section id="contact">
+        <section id="contact-section">
             <h2>Contact Us</h2>
             <form>
                 <div class="form-group">
@@ -493,49 +622,16 @@
         </div>
     </footer>
 
-    <!-- JavaScript for basic interaction -->
+    <!-- JavaScript for page switching, modal, and carousel -->
     <script>
-        // Get the CTA button element
-        const ctaButton = document.getElementById('ctaButton');
-
-        // Get all navigation links
-        const navLinks = document.querySelectorAll('nav ul li a');
-
-        // Add a click event listener to the CTA button
-        if (ctaButton) {
-            ctaButton.addEventListener('click', () => {
-                // Display a simple message in a custom modal
-                showCustomModal('Thank you for your interest! This is a simple demo. You can add more functionality here.');
-            });
-        }
-
-        // Add click event listeners to navigation links for smooth scrolling
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default anchor link behavior
-
-                const targetId = this.getAttribute('href').substring(1); // Get the section ID
-                const targetSection = document.getElementById(targetId);
-
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth' // Smooth scroll to the section
-                    });
-                }
-            });
-        });
-
         // Function to show a custom modal message
         function showCustomModal(message) {
-            // Check if a modal already exists to prevent duplicates
             let modalOverlay = document.getElementById('customModalOverlay');
             if (!modalOverlay) {
-                // Create modal overlay
                 modalOverlay = document.createElement('div');
                 modalOverlay.id = 'customModalOverlay';
                 modalOverlay.className = 'custom-modal-overlay';
 
-                // Create modal content box
                 const modalContent = document.createElement('div');
                 modalContent.className = 'custom-modal-content';
                 modalContent.innerHTML = `
@@ -546,21 +642,17 @@
                 modalOverlay.appendChild(modalContent);
                 document.body.appendChild(modalOverlay);
 
-                // Animate modal in
                 setTimeout(() => {
                     modalOverlay.classList.add('show');
-                }, 10); // Small delay for transition to apply
+                }, 10);
 
-                // Add event listener to close button
                 document.getElementById('closeModal').addEventListener('click', () => {
-                    // Animate modal out before removing
                     modalOverlay.classList.remove('show');
                     setTimeout(() => {
                         modalOverlay.remove();
-                    }, 300); // Wait for transition to finish
+                    }, 300);
                 });
 
-                // Close modal if clicking outside the content
                 modalOverlay.addEventListener('click', (event) => {
                     if (event.target === modalOverlay) {
                         modalOverlay.classList.remove('show');
@@ -570,6 +662,125 @@
                     }
                 });
             }
+        }
+
+        // CTA Button functionality
+        const ctaButton = document.getElementById('ctaButton');
+        if (ctaButton) {
+            ctaButton.addEventListener('click', () => {
+                showCustomModal('Thank you for your interest! This is a simple demo. You can add more functionality here.');
+            });
+        }
+
+        // Page Switching Functionality
+        const sections = document.querySelectorAll('main section');
+        const navLinks = document.querySelectorAll('header nav ul li a');
+
+        function showSection(id) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            const activeSection = document.getElementById(id);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                // For carousel on home page, re-initialize or update its position
+                if (id === 'home-section') {
+                    updateCarousel(); // Ensure carousel is correctly positioned when home section becomes active
+                }
+            }
+        }
+
+        // Add click event listeners to navigation links for page switching
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor link behavior
+                const targetSectionId = this.dataset.section; // Get the section ID from data-section attribute
+                showSection(targetSectionId);
+            });
+        });
+
+        // Initialize to show the home section on load
+        window.addEventListener('DOMContentLoaded', () => {
+            showSection('home-section');
+        });
+
+
+        // Carousel Functionality (only for home-section)
+        const carouselSlide = document.getElementById('carouselSlide');
+        const carouselImages = carouselSlide ? carouselSlide.querySelectorAll('img') : [];
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const carouselDotsContainer = document.getElementById('carouselDots');
+        const carouselDots = carouselDotsContainer ? carouselDotsContainer.querySelectorAll('.carousel-dot') : [];
+
+        let currentIndex = 0;
+        const totalImages = carouselImages.length;
+        let autoSlideInterval; // Declare it here so it can be cleared
+
+        // Function to update carousel position
+        function updateCarousel() {
+            if (carouselImages.length > 0 && carouselImages[0].clientWidth > 0) {
+                const slideWidth = carouselImages[0].clientWidth;
+                carouselSlide.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+            }
+            updateDots();
+        }
+
+        // Function to update active dot
+        function updateDots() {
+            carouselDots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Go to next slide
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateCarousel();
+        }
+
+        // Go to previous slide
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateCarousel();
+        }
+
+        // Initialize carousel buttons and dots only if they exist (i.e., on home page)
+        if (prevBtn && nextBtn && carouselDotsContainer) {
+            // Event listeners for carousel buttons
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // Event listeners for carousel dots
+            carouselDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.dataset.slide);
+                    currentIndex = slideIndex;
+                    updateCarousel();
+                });
+            });
+
+            // Automatic carousel sliding
+            autoSlideInterval = setInterval(nextSlide, 3000); // Change image every 3 seconds
+
+            // Pause auto-slide on hover
+            carouselSlide.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+
+            carouselSlide.addEventListener('mouseleave', () => {
+                autoSlideInterval = setInterval(nextSlide, 3000);
+            });
+
+            // Recalculate slide width and update carousel on window resize
+            window.addEventListener('resize', updateCarousel);
+
+            // Initial update when the home section is first displayed
+            // This is handled by showSection('home-section') on DOMContentLoaded
         }
     </script>
 </body>
